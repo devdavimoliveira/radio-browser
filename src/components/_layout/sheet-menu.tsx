@@ -16,7 +16,7 @@ export function SheetMenu() {
         <Dialog.Overlay className="fixed inset-0 z-50 bg-black/60 backdrop-blur-md" />
         <Dialog.Content
           id="test-cont"
-          className="fixed left-0 top-0 z-50 h-full w-80 bg-stone-300"
+          className="fixed left-0 top-0 z-50 h-full w-80 bg-zinc-800"
         >
           <Dialog.Title>Sheet Menu</Dialog.Title>
           <VisuallyHidden asChild>
