@@ -1,4 +1,4 @@
-import { SheetMenu } from './sheet-menu'
+import { SheetMenu } from '@/components/_layout/sheet-menu'
 
 export function Header() {
   return (
