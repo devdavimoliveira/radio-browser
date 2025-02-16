@@ -1,8 +1,10 @@
 'use client'
 
+import { Suspense } from 'react'
 import * as Dialog from '@radix-ui/react-dialog'
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden'
 import { Menu, X } from 'lucide-react'
+import { SideStationList } from '../side-station-list'
 
 export function SheetMenu() {
   return (
@@ -14,19 +16,23 @@ export function SheetMenu() {
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-50 bg-black/60 backdrop-blur-md" />
-        <Dialog.Content
-          id="test-cont"
-          className="fixed left-0 top-0 z-50 h-full w-80 bg-zinc-800"
-        >
-          <Dialog.Title>Sheet Menu</Dialog.Title>
-          <VisuallyHidden asChild>
-            <Dialog.Description>Sheet Menu</Dialog.Description>
-          </VisuallyHidden>
-          <Dialog.Close asChild>
-            <button className="absolute right-2 top-2">
-              <X size={28} />
-            </button>
-          </Dialog.Close>
+        <Dialog.Content asChild>
+          <div className="fixed left-0 top-0 z-50 flex h-full w-80 flex-col gap-2 bg-zinc-800 p-4">
+            <Dialog.Title asChild>
+              <h3 className="text-2xl font-medium">Rádios</h3>
+            </Dialog.Title>
+            <VisuallyHidden asChild>
+              <Dialog.Description>Lista de Rádios</Dialog.Description>
+            </VisuallyHidden>
+            <Dialog.Close asChild>
+              <button className="absolute right-2 top-2">
+                <X size={28} />
+              </button>
+            </Dialog.Close>
+            <Suspense>
+              <SideStationList />
+            </Suspense>
+          </div>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>

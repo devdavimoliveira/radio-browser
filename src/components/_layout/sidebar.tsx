@@ -1,7 +1,13 @@
+import { Suspense } from 'react'
+import { SideStationList } from '../side-station-list'
+
 export function Sidebar() {
   return (
-    <aside className="fixed left-0 top-0 hidden h-screen w-80 bg-zinc-800 lg:block">
-      Sidebar
+    <aside className="hidden lg:fixed lg:left-0 lg:top-0 lg:flex lg:h-screen lg:w-80 lg:flex-col lg:gap-2 lg:bg-zinc-800 lg:p-4">
+      <h3 className="text-2xl font-medium">Rádios</h3>
+      <Suspense>
+        <SideStationList />
+      </Suspense>
     </aside>
   )
 }
