@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { roboto } from '@/styles/fonts'
 import '@/styles/globals.css'
 
+import { Providers } from '@/components/providers'
+
 export const metadata: Metadata = {
   title: 'Desafio Radio Browser',
   description: 'Desafio Radio Browser por Coodesh',
@@ -17,7 +19,7 @@ export default function RootLayout({
       <body
         className={`${roboto.className} bg-zinc-900 text-white antialiased`}
       >
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   )
