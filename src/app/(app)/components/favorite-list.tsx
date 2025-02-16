@@ -1,4 +1,4 @@
-import { Pencil, Play, Trash2 } from 'lucide-react'
+import { Pencil, CirclePlay, Trash2 } from 'lucide-react'
 
 export default function FavoriteList() {
   return (
@@ -6,9 +6,9 @@ export default function FavoriteList() {
       {Array.from({ length: 10 }).map((_, index) => (
         <li key={index} className="rounded-lg bg-zinc-800 px-5 py-8">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-4">
               <button title="Tocar Rádio">
-                <Play size={32} />
+                <CirclePlay size={28} />
               </button>
               <span className="text-lg">Jovem Pan FM - Florianópolis - SC</span>
             </div>
