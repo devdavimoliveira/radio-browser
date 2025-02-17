@@ -85,7 +85,7 @@ export function EditStationForm({ station, onClose }: EditStationFormProps) {
         )}
       </div>
 
-      <button className="h-10 rounded-lg bg-zinc-800 text-lg font-bold">
+      <button className="h-10 rounded-lg bg-zinc-900 text-lg font-bold">
         Salvar
       </button>
     </form>

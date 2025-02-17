@@ -14,9 +14,9 @@ export function SheetMenu() {
         </button>
       </Dialog.Trigger>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/60 backdrop-blur-md" />
+        <Dialog.Overlay className="fixed inset-0 bg-black/10 backdrop-blur-md" />
         <Dialog.Content asChild>
-          <div className="fixed left-0 top-0 z-50 flex h-full w-80 flex-col gap-2 bg-zinc-800 p-4">
+          <div className="fixed left-0 top-0 flex h-full w-80 flex-col gap-2 bg-zinc-800 p-4">
             <Dialog.Title asChild>
               <h3 className="text-2xl font-medium">Rádios</h3>
             </Dialog.Title>
