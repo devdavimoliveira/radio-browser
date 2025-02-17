@@ -3,9 +3,16 @@
 import { useSearchParams } from 'next/navigation'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { getStationsByFilter } from '@/http/get-stations-by-filters'
-import { CircleArrowDown, CirclePlay } from 'lucide-react'
+import {
+  CircleArrowDown,
+  CircleCheck,
+  CirclePlay,
+  CirclePlus,
+} from 'lucide-react'
 import { Fragment } from 'react'
 import { cn } from '@/lib/utils'
+import { StationContext } from '@/contexts/station-context'
+import { useContextSelector } from 'use-context-selector'
 
 export function SideStationList() {
   const searchParams = useSearchParams()
@@ -31,6 +38,21 @@ export function SideStationList() {
     },
   })
 
+  const addToFavorites = useContextSelector(
+    StationContext,
+    (context) => context.addToFavorites,
+  )
+
+  const removeFromFavorites = useContextSelector(
+    StationContext,
+    (context) => context.removeFromFavorites,
+  )
+
+  const findInFavorites = useContextSelector(
+    StationContext,
+    (context) => context.findInFavorites,
+  )
+
   if (isLoading) return <div>Carregando...</div>
 
   return (
@@ -46,6 +68,21 @@ export function SideStationList() {
                 <CirclePlay size={28} />
               </button>
               {station.name}
+              {findInFavorites(station) !== undefined ? (
+                <button
+                  onClick={() => removeFromFavorites(station)}
+                  className="ml-auto"
+                >
+                  <CircleCheck size={22} />
+                </button>
+              ) : (
+                <button
+                  onClick={() => addToFavorites(station)}
+                  className="ml-auto"
+                >
+                  <CirclePlus size={22} />
+                </button>
+              )}
             </li>
           ))}
         </Fragment>
