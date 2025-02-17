@@ -4,6 +4,7 @@ import { Station } from '@/@types/station'
 
 interface StationContextType {
   favorites: Station[]
+  isFavoritesLoading: boolean
   addToFavorites: (station: Station) => void
   removeFromFavorites: (station: Station) => void
   findInFavorites: (station: Station) => Station | undefined
@@ -14,6 +15,7 @@ export const StationContext = createContext({} as StationContextType)
 
 export function StationProvider({ children }: { children: React.ReactNode }) {
   const [favorites, setFavorites] = useState<Station[]>([])
+  const [isFavoritesLoading, setIsFavoritesLoading] = useState(true)
 
   function addToFavorites(station: Station) {
     const updatedFavorites = [...favorites, station]
@@ -76,12 +78,15 @@ export function StationProvider({ children }: { children: React.ReactNode }) {
     if (favoritesFromLocalStorage) {
       setFavorites(JSON.parse(favoritesFromLocalStorage))
     }
+
+    setTimeout(() => setIsFavoritesLoading(false), 1000)
   }, [])
 
   return (
     <StationContext.Provider
       value={{
         favorites,
+        isFavoritesLoading,
         addToFavorites,
         removeFromFavorites,
         findInFavorites,
