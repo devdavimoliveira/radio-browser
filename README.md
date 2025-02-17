@@ -16,14 +16,21 @@ O Radio Browser permite que os usuários pesquisem por estações de rádio, as 
 
 ## 🛠 Funcionalidades
 
-[✅] Adicionar estações de rádio à lista de favoritos;
-[✅] Visualizar lista de estações de rádios adicionadas;
-[✅] Remover estações de rádio da lista;
-[✅] Editar informações de uma estação de rádio;
-[✅] Ouvir uma estação de rádio ao clicar no botão de play;
-[✅] Parar de ouvir uma estação de rádio ao clicar no botão de pause;
-[✅] Pesquisar rádios por nome, país ou idioma;
-[✅] Persistir dados para manter as estações de rádio salvas ao voltar para aplicação.
+✅ Adicionar estações de rádio à lista de favoritos;
+
+✅ Visualizar lista de estações de rádios adicionadas;
+
+✅ Remover estações de rádio da lista;
+
+✅ Editar informações de uma estação de rádio;
+
+✅ Ouvir uma estação de rádio ao clicar no botão de play;
+
+✅ Parar de ouvir uma estação de rádio ao clicar no botão de pause;
+
+✅ Pesquisar rádios por nome, país ou idioma;
+
+✅ Persistir dados para manter as estações de rádio salvas ao voltar para aplicação.
 
 ## 📄 Como instalar e rodar o projeto
 
