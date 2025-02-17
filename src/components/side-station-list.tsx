@@ -67,49 +67,54 @@ export function SideStationList() {
     (context) => context.pauseStation,
   )
 
-  if (isLoading) return <div>Carregando...</div>
-
   return (
     <ul className="flex flex-grow flex-col gap-5 overflow-y-auto overflow-x-hidden pr-2 [scrollbar-color:#18181b_transparent]">
-      {data?.pages.map((group, i) => (
-        <Fragment key={i}>
-          {group.map((station) => (
+      {isLoading
+        ? Array.from({ length: 10 }).map((_, index) => (
             <li
-              key={station.stationuuid}
-              className="flex items-center gap-4 rounded-lg bg-zinc-900 p-5"
-            >
-              {currentStation?.stationuuid === station.stationuuid ? (
-                <button title="Pausar Rádio" onClick={pauseStation}>
-                  <CirclePause size={28} />
-                </button>
-              ) : (
-                <button
-                  title="Tocar Rádio"
-                  onClick={() => playStation(station)}
+              key={index}
+              className="h-[3.75rem] shrink-0 animate-pulse rounded-lg bg-zinc-900"
+            />
+          ))
+        : data?.pages.map((group, i) => (
+            <Fragment key={i}>
+              {group.map((station) => (
+                <li
+                  key={station.stationuuid}
+                  className="flex items-center gap-4 rounded-lg bg-zinc-900 p-5"
                 >
-                  <CirclePlay size={28} />
-                </button>
-              )}
-              {station.name}
-              {findInFavorites(station) !== undefined ? (
-                <button
-                  onClick={() => removeFromFavorites(station)}
-                  className="ml-auto"
-                >
-                  <CircleCheck size={22} />
-                </button>
-              ) : (
-                <button
-                  onClick={() => addToFavorites(station)}
-                  className="ml-auto"
-                >
-                  <CirclePlus size={22} />
-                </button>
-              )}
-            </li>
+                  {currentStation?.stationuuid === station.stationuuid ? (
+                    <button title="Pausar Rádio" onClick={pauseStation}>
+                      <CirclePause size={28} />
+                    </button>
+                  ) : (
+                    <button
+                      title="Tocar Rádio"
+                      onClick={() => playStation(station)}
+                    >
+                      <CirclePlay size={28} />
+                    </button>
+                  )}
+                  {station.name}
+                  {findInFavorites(station) !== undefined ? (
+                    <button
+                      onClick={() => removeFromFavorites(station)}
+                      className="ml-auto"
+                    >
+                      <CircleCheck size={22} />
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => addToFavorites(station)}
+                      className="ml-auto"
+                    >
+                      <CirclePlus size={22} />
+                    </button>
+                  )}
+                </li>
+              ))}
+            </Fragment>
           ))}
-        </Fragment>
-      ))}
       <li>
         <button
           title="Carregar mais"
