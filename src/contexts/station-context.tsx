@@ -7,6 +7,7 @@ interface StationContextType {
   addToFavorites: (station: Station) => void
   removeFromFavorites: (station: Station) => void
   findInFavorites: (station: Station) => Station | undefined
+  updateStation: (station: Station) => void
 }
 
 export const StationContext = createContext({} as StationContextType)
@@ -42,6 +43,31 @@ export function StationProvider({ children }: { children: React.ReactNode }) {
     return favorites.find((s) => s.stationuuid === station.stationuuid)
   }
 
+  function updateStation(station: Station) {
+    const updatedStation = findInFavorites(station)
+
+    if (!updatedStation) return
+
+    updatedStation.name = station.name
+    updatedStation.url = station.url
+    updatedStation.url_resolved = station.url_resolved
+
+    const updatedFavorites = favorites.map((s) => {
+      if (s.stationuuid === station.stationuuid) {
+        s = updatedStation
+        return s
+      }
+      return s
+    })
+
+    setFavorites(updatedFavorites)
+
+    localStorage.setItem(
+      '@radiobrowser:favorites',
+      JSON.stringify(updatedFavorites),
+    )
+  }
+
   useEffect(() => {
     const favoritesFromLocalStorage = localStorage.getItem(
       '@radiobrowser:favorites',
@@ -59,6 +85,7 @@ export function StationProvider({ children }: { children: React.ReactNode }) {
         addToFavorites,
         removeFromFavorites,
         findInFavorites,
+        updateStation,
       }}
     >
       {children}
