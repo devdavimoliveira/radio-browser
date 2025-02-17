@@ -1,10 +1,9 @@
-'use client'
-
 import { Suspense } from 'react'
 import * as Dialog from '@radix-ui/react-dialog'
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden'
 import { Menu, X } from 'lucide-react'
 import { SideStationList } from '../side-station-list'
+import { ListFilter } from '../list-filter'
 
 export function SheetMenu() {
   return (
@@ -29,6 +28,7 @@ export function SheetMenu() {
                 <X size={28} />
               </button>
             </Dialog.Close>
+            <ListFilter />
             <Suspense>
               <SideStationList />
             </Suspense>
