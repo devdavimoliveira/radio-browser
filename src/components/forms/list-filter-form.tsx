@@ -7,6 +7,7 @@ import { X } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
+import { useUpdateSearchParams } from '@/hooks/use-update-search-params'
 
 interface ListFilterFormProps {
   onClose: () => void
@@ -35,8 +36,16 @@ export function ListFilterForm({ onClose }: ListFilterFormProps) {
     queryFn: () => getLanguages(),
   })
 
+  const updateSearchParams = useUpdateSearchParams()
+
   function handleFilterFormSubmit(data: FilterFormSchema) {
-    console.log(data)
+    updateSearchParams({
+      name: data.name,
+      countrycode: data.countrycode,
+      language: data.language,
+    })
+
+    onClose()
   }
 
   return (
