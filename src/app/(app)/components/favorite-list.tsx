@@ -2,7 +2,8 @@
 
 import { StationContext } from '@/contexts/station-context'
 import { useContextSelector } from 'use-context-selector'
-import { Pencil, CirclePlay, Trash2 } from 'lucide-react'
+import { AudioContext } from '@/contexts/audio-context'
+import { Pencil, CirclePlay, Trash2, CirclePause } from 'lucide-react'
 
 export default function FavoriteList() {
   const favorites = useContextSelector(
@@ -15,6 +16,21 @@ export default function FavoriteList() {
     (context) => context.removeFromFavorites,
   )
 
+  const currentStation = useContextSelector(
+    AudioContext,
+    (context) => context.currentStation,
+  )
+
+  const playStation = useContextSelector(
+    AudioContext,
+    (context) => context.playStation,
+  )
+
+  const pauseStation = useContextSelector(
+    AudioContext,
+    (context) => context.pauseStation,
+  )
+
   return (
     <ul className="flex h-[calc(100%-3.25rem)] flex-col gap-5 overflow-y-auto pr-4 [scrollbar-color:#27272a_transparent]">
       {favorites.map((station) => (
@@ -24,9 +40,18 @@ export default function FavoriteList() {
         >
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <button title="Tocar Rádio">
-                <CirclePlay size={28} />
-              </button>
+              {currentStation?.stationuuid === station.stationuuid ? (
+                <button title="Pausar Rádio" onClick={pauseStation}>
+                  <CirclePause size={28} />
+                </button>
+              ) : (
+                <button
+                  title="Tocar Rádio"
+                  onClick={() => playStation(station)}
+                >
+                  <CirclePlay size={28} />
+                </button>
+              )}
               <span className="text-lg">{station.name}</span>
             </div>
 

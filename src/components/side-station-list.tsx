@@ -6,6 +6,7 @@ import { getStationsByFilter } from '@/http/get-stations-by-filters'
 import {
   CircleArrowDown,
   CircleCheck,
+  CirclePause,
   CirclePlay,
   CirclePlus,
 } from 'lucide-react'
@@ -13,6 +14,7 @@ import { Fragment } from 'react'
 import { cn } from '@/lib/utils'
 import { StationContext } from '@/contexts/station-context'
 import { useContextSelector } from 'use-context-selector'
+import { AudioContext } from '@/contexts/audio-context'
 
 export function SideStationList() {
   const searchParams = useSearchParams()
@@ -53,6 +55,21 @@ export function SideStationList() {
     (context) => context.findInFavorites,
   )
 
+  const currentStation = useContextSelector(
+    AudioContext,
+    (context) => context.currentStation,
+  )
+
+  const playStation = useContextSelector(
+    AudioContext,
+    (context) => context.playStation,
+  )
+
+  const pauseStation = useContextSelector(
+    AudioContext,
+    (context) => context.pauseStation,
+  )
+
   if (isLoading) return <div>Carregando...</div>
 
   return (
@@ -64,9 +81,18 @@ export function SideStationList() {
               key={station.stationuuid}
               className="flex items-center gap-4 rounded-lg bg-zinc-900 p-5"
             >
-              <button title="Tocar Rádio">
-                <CirclePlay size={28} />
-              </button>
+              {currentStation?.stationuuid === station.stationuuid ? (
+                <button title="Pausar Rádio" onClick={pauseStation}>
+                  <CirclePause size={28} />
+                </button>
+              ) : (
+                <button
+                  title="Tocar Rádio"
+                  onClick={() => playStation(station)}
+                >
+                  <CirclePlay size={28} />
+                </button>
+              )}
               {station.name}
               {findInFavorites(station) !== undefined ? (
                 <button
