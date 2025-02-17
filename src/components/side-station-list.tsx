@@ -19,20 +19,17 @@ import { AudioContext } from '@/contexts/audio-context'
 export function SideStationList() {
   const searchParams = useSearchParams()
 
-  const countrycode = searchParams.get('countrycode') ?? 'br'
+  const countrycode = searchParams.get('countrycode') ?? 'BR'
   const name = searchParams.get('name') ?? ''
   const language = searchParams.get('language') ?? ''
-  const offset = Number(searchParams.get('offset') ?? 0)
-  const orderBy = searchParams.get('order') ?? 'clicktrend'
 
   const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery({
-    queryKey: ['stations', countrycode, name, language, orderBy, offset],
+    queryKey: ['stations', { countrycode, name, language }],
     queryFn: ({ pageParam = 0 }) =>
       getStationsByFilter({
         countrycode,
         name,
         language,
-        orderBy,
         offset: pageParam,
       }),
     getNextPageParam: (lastPage, allPages) => {

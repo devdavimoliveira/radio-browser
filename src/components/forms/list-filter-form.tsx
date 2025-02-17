@@ -4,10 +4,11 @@ import { useQuery } from '@tanstack/react-query'
 import { getCountries } from '@/http/get-countries'
 import { getLanguages } from '@/http/get-languages'
 import { X } from 'lucide-react'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { useUpdateSearchParams } from '@/hooks/use-update-search-params'
+import { useSearchParams } from 'next/navigation'
 
 interface ListFilterFormProps {
   onClose: () => void
@@ -22,8 +23,19 @@ const filterFormSchema = z.object({
 type FilterFormSchema = z.infer<typeof filterFormSchema>
 
 export function ListFilterForm({ onClose }: ListFilterFormProps) {
-  const { handleSubmit, register } = useForm({
+  const searchParams = useSearchParams()
+
+  const countrycode = searchParams.get('countrycode') ?? 'BR'
+  const name = searchParams.get('name') ?? ''
+  const language = searchParams.get('language') ?? ''
+
+  const { handleSubmit, register, control } = useForm({
     resolver: zodResolver(filterFormSchema),
+    defaultValues: {
+      name,
+      countrycode,
+      language,
+    },
   })
 
   const { data: countries } = useQuery({
@@ -71,32 +83,44 @@ export function ListFilterForm({ onClose }: ListFilterFormProps) {
       />
 
       <label htmlFor="countries">País</label>
-      <select
-        id="countries"
-        className="h-10 w-full rounded-lg text-black"
-        {...register('countrycode')}
-      >
-        <option value=""></option>
-        {countries?.map((country) => (
-          <option key={country.iso_3166_1} value={country.iso_3166_1}>
-            {country.name}
-          </option>
-        ))}
-      </select>
+      <Controller
+        name="countrycode"
+        control={control}
+        render={({ field }) => (
+          <select
+            id="countries"
+            className="h-10 w-full rounded-lg text-black"
+            {...field}
+          >
+            <option value=""></option>
+            {countries?.map((country) => (
+              <option key={country.iso_3166_1} value={country.iso_3166_1}>
+                {country.name}
+              </option>
+            ))}
+          </select>
+        )}
+      />
 
       <label htmlFor="languages">Idioma</label>
-      <select
-        id="languages"
-        className="h-10 w-full rounded-lg text-black"
-        {...register('language')}
-      >
-        <option value=""></option>
-        {languages?.map((language) => (
-          <option key={language.name} value={language.name}>
-            {language.name}
-          </option>
-        ))}
-      </select>
+      <Controller
+        name="language"
+        control={control}
+        render={({ field }) => (
+          <select
+            id="languages"
+            className="h-10 w-full rounded-lg text-black"
+            {...field}
+          >
+            <option value=""></option>
+            {languages?.map((language) => (
+              <option key={language.name} value={language.name}>
+                {language.name}
+              </option>
+            ))}
+          </select>
+        )}
+      />
 
       <button
         type="submit"
